@@ -1,0 +1,105 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+}
+
+.banner {
+  padding: 2rem;
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  font-size: x-large;
+
+}
+
+.resumeUploadContainer {
+  padding: 2rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resumeInput {
+  padding: 2rem;
+  border: 1px dashed gray;
+  border-radius: 8px;
+}
+
+.descriptionContainer {
+  margin-top: 3rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+  padding: 1rem;
+  font-size: large;
+  border: 1px solid gray;
+  border-radius: 8px;
+}
+
+button {
+  margin-top: 3rem;
+  font-size: large;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  background-color: #0077B5;
+  border: 1px solid;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: #005F8D;
+}
+
+.userGreeting {
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 600px) {
+
+  .mainContainer {
+  padding: 0.4rem;
+}
+
+
+  .banner {
+    padding: 0.6rem;
+    font-size: large;
+  }
+
+
+  .resumeUploadContainer {
+  padding: 1rem;
+  margin-top: 3rem;
+}
+
+.descriptionContainer {
+  padding: 1rem;
+}
+
+textarea {
+  padding: 1rem;
+}
+
+
+}

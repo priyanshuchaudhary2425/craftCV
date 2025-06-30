@@ -1,0 +1,31 @@
+.feedbackContainer {
+    margin-top: 3rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feedbackContent {
+    padding: 2rem;
+    font-size: large;
+    border: 1px dashed gray;
+    border-radius: 8px;
+}
+
+
+@media (max-width: 600px) {
+
+    .feedbackContainer {
+        padding: 1rem;
+    }
+
+    .feedbackContent {
+        padding: 1rem;
+        font-size: medium;
+    }
+}
