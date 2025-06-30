@@ -34,7 +34,7 @@ function Home({ result, setResult}) {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:3000/api/optimize", {
+            const response = await fetch("https://craftcv-raa7.onrender.com/api/optimize", {
                 method: "POST",
                 body: formData,
             });
