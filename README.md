@@ -50,3 +50,10 @@ Upload your resume, paste your job description, and get AI-powered feedback inst
 
 ---
 
+## 🛠️ Clone the Project
+
+```bash
+# Clone the repo
+git clone https://github.com/priyanshuchaudhary2425/craftCV.git
+cd craftCV
+
