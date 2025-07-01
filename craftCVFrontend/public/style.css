@@ -64,19 +64,6 @@ label {
   vertical-align: middle;
 }
 
-
-
-header {
-    font-size: larger;
-    padding: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    border-bottom: 1px solid black;
-}
-
-
 footer {
   font-size: larger;
   padding: 0.5rem;
@@ -86,22 +73,10 @@ footer {
 }
 
 
+@media (max-width: 600px) {
 
+  header {
+    font-size: small;
+}
 
-
-
-
-
-/* The overlay: covers entire screen */
-.popupOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* semi-transparent */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999; /* make sure it’s on top */
 }
