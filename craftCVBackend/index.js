@@ -28,6 +28,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+
 // Routing
 app.post("/api/optimize", upload.single("resume"), async (req, res) => {
   
@@ -52,7 +53,6 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
 
   await incrementUsageCount();
   const usageCount = await getUsageCOunt();
-
   console.log("Used by: ",usageCount);
   
   res.json({...parsed, usageCount});
@@ -70,6 +70,23 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
     }
   })
 }
+});
+
+
+app.post("/api/feedback", async (req, res) => {
+  const { text } = req.body;
+
+  if(!text || text.trim() === "") {
+    return res.status(400).json({ error: "Feedback text is required"});
+  }
+
+  try {
+    await db.query(`INSERT into feedback (feedbackText) VALUES ($1)`, [text.trim()]);
+    res.status(201).json({ message: "Feedback saved!" });
+  } catch (err) {
+    console.error("❌ Error saving feedback:", err.message);
+    res.status(500).json({ error: "Failed to save feedback" });
+  }
 });
 
 

@@ -7,7 +7,7 @@ import { SlEnvolopeLetter } from "react-icons/sl";
 
 function ResultDisplay({ result }) {
   return (
-    <div className="resultContainer">
+    <div>
 
       <div className={styles.feedbackContainer}>
       <h3> 

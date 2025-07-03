@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ResultDisplay from "../component/result.jsx";
+import Feedback from "../component/feedback.jsx";
 import styles from "./home.module.css";
 import { MdFileUpload } from "react-icons/md";
 import { MdEditNote } from "react-icons/md";
@@ -107,6 +108,8 @@ function Home({ result, setResult}) {
             {result && 
                 <h3 className={styles.userGreeting}>You’re our #{result.usageCount} user — Thanks for believing in us!!!</h3>
             }
+
+            <Feedback />
 
         </div>
     );
