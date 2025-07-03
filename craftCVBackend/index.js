@@ -81,11 +81,6 @@ app.post("/api/feedback", async (req, res) => {
     return res.status(400).json({ error: "Feedback text is required"});
   }
 
-    console.log("✅ Incoming /api/feedback");
-    console.log("req.body:", req.body);
-    console.log("trimmedText:", trimmedText);
-
-
   console.log("📩 New Feedback:", trimmedText);
 
   try {
