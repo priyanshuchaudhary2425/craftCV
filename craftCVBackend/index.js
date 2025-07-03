@@ -81,6 +81,8 @@ app.post("/api/feedback", async (req, res) => {
     return res.status(400).json({ error: "Feedback text is required"});
   }
 
+  console.log("📩 New Feedback:", trimmedText);
+
   try {
     await db.query(`INSERT into feedback (feedbackText) VALUES ($1)`, [text.trim()]);
     res.status(201).json({ message: "Feedback saved!" });

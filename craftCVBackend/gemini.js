@@ -64,7 +64,7 @@ IMPORTANT:
   });
 
   const text = response.candidates[0].content.parts[0].text;
-  // console.log(text);
+  console.log(text);
   return text;
 } catch (err) {
   console.error("API Error", err.message);
