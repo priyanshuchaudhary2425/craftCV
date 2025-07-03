@@ -64,7 +64,9 @@ function Feedback() {
 
         <button 
         disabled={loading}
-        style={{ marginTop: "1rem" }} type="submit">Submit</button>
+        style={{ marginTop: "1rem" }} type="submit">
+            {loading ? "submitting..." : "submit"}
+        </button>
      </form>
     );
 }
