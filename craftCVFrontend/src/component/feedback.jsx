@@ -11,7 +11,16 @@ function Feedback() {
     setfeedbackText(e.target.value);
    }
 
-   const handleSubmit = async () => {
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const trimmedFeedback = feedbackText.trim();
+
+    if (trimmedFeedback.length === 0) {
+        alert("Feedback can't be empty! ✍️");
+        return;
+    }
+
     setLoading(true);
     try {
         await fetch("https://craftcv-raa7.onrender.com/api/feedback", {

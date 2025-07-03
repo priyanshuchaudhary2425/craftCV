@@ -75,8 +75,9 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
 
 app.post("/api/feedback", async (req, res) => {
   const { text } = req.body;
+  const trimmedText = text?.trim();
 
-  if(!text || text.trim() === "") {
+  if(!trimmedText) {
     return res.status(400).json({ error: "Feedback text is required"});
   }
 
