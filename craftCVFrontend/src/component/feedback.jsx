@@ -29,22 +29,24 @@ function Feedback() {
    };
 
     return (
-        <div className={styles.feedbackContainer}>
-            <label>
-                <VscFeedback className="icons" />
-                Feedback</label>
-            <textarea
-            value={feedbackText}
-            onChange={handleText}
-            rows="8"
-            cols="40"
-            placeholder="Write your thoughts… What did you like? What can we do better?"
-            />
 
-            <button 
-            disabled={loading}
-            style={{ marginTop: "1rem" }} type="submit">Submit</button>
-        </div>
+        <form onClick={handleSubmit} className={styles.feedbackContainer}>
+
+        <label>
+            <VscFeedback className="icons" />
+            Feedback</label>
+        <textarea
+        value={feedbackText}
+        onChange={handleText}
+        rows="8"
+        cols="40"
+        placeholder="Write your thoughts… What did you like? What can we do better?"
+        />
+
+        <button 
+        disabled={loading}
+        style={{ marginTop: "1rem" }} type="submit">Submit</button>
+     </form>
     );
 }
 
