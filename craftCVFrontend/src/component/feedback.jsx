@@ -30,7 +30,7 @@ function Feedback() {
 
     return (
 
-        <form onClick={handleSubmit} className={styles.feedbackContainer}>
+        <form onSubmit={handleSubmit} className={styles.feedbackContainer}>
 
         <label>
             <VscFeedback className="icons" />
