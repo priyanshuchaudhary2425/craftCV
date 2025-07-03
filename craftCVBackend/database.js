@@ -35,9 +35,25 @@ export async function creatTables() {
         );
 
         console.log("✅Table created or already exist...")
+
+        // Initialize usageCount row
+        const result = await db.query(`SELECT * FROM usageCount`);
+        if (result.rowCount === 0) {
+        await db.query(`INSERT INTO usageCount (usage) VALUES (0)`);
+        console.log("✅ Initialized usageCount to 0");
+        }
     } catch (err) {
         console.error("❌ Errorcreating table", err.stack);
     }
 }
 
+
+export async function incrementUsageCount() {
+    await db.query(`UPDATE usageCount SET usage = usage + 1 where id = 1`)
+}
+
+export async function getUsageCOunt() {
+    const result = await db.query(`SELECT usage from usageCount WHERE id = 1`);
+    return result.rows[0].usage;
+}
 export { db };

@@ -3,9 +3,12 @@ import googleGeminiApi from "./gemini.js";
 import multer from "multer";
 import cors from "cors";
 import fs from "fs";
+import { db, creatTables, incrementUsageCount, getUsageCOunt } from "./database.js";
 
 const app = express();
 const PORT = 3000;
+
+await creatTables();
 
 app.use(cors());
 app.use(express.json());
@@ -24,9 +27,6 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage });
-
-// COunting Usage
-let usageCount = 0;
 
 // Routing
 app.post("/api/optimize", upload.single("resume"), async (req, res) => {
@@ -50,8 +50,10 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
   const cleanJson = result.replace(/```json|```/g, "").trim();
   const parsed = JSON.parse(cleanJson);
 
-  usageCount += 1;
-  console.log(usageCount);
+  await incrementUsageCount();
+  const usageCount = await getUsageCOunt();
+
+  console.log("Used by: ",usageCount);
   
   res.json({...parsed, usageCount});
 }
