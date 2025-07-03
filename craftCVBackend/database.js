@@ -21,8 +21,8 @@ export async function creatTables() {
         await db.query(`
             CREATE table if NOT EXISTS feedback (
                 id SERIAL PRIMARY KEY,
-                text not NULL,
-                created_at TIMESTAMP DEFAULT NOW()
+                feedbackText TEXT not NULL,
+                createdAt TIMESTAMP DEFAULT NOW()
             );`
         );
 
@@ -43,7 +43,7 @@ export async function creatTables() {
         console.log("✅ Initialized usageCount to 0");
         }
     } catch (err) {
-        console.error("❌ Errorcreating table", err.stack);
+        console.error("❌ Error creating table", err.stack);
     }
 }
 
