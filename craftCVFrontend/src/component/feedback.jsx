@@ -23,13 +23,20 @@ function Feedback() {
 
     setLoading(true);
     try {
-        await fetch("https://craftcv-raa7.onrender.com/api/feedback", {
+        const result = await fetch("https://craftcv-raa7.onrender.com/api/feedback", {
             method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({ text: feedbackText})
+            body: JSON.stringify({ text: trimmedFeedback})
         });
-        alert("Thanks for your Suggestion 💗");
-        setfeedbackText("");
+
+        const data = await result.json();
+
+        if (result.ok) {
+            alert(`${data.message}`);
+            setfeedbackText("");
+        } else {
+            alert(`${data.message}`);
+        }
+
     } catch (err) {
         console.error("❌ Error", err);
     } finally {

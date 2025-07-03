@@ -85,7 +85,7 @@ app.post("/api/feedback", async (req, res) => {
 
   try {
     await db.query(`INSERT into feedback (feedbackText) VALUES ($1)`, [text.trim()]);
-    res.status(201).json({ message: "Feedback saved!" });
+    res.status(201).json({ message: "Thanks for suggetion 💗" });
   } catch (err) {
     console.error("❌ Error saving feedback:", err.message);
     res.status(500).json({ error: "Failed to save feedback" });
