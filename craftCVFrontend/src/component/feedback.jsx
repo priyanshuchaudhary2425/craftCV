@@ -25,6 +25,9 @@ function Feedback() {
     try {
         const result = await fetch("https://craftcv-raa7.onrender.com/api/feedback", {
             method: "POST",
+            headers: {
+                        "Content-Type": "application/json" 
+                    },
             body: JSON.stringify({ text: trimmedFeedback})
         });
 
