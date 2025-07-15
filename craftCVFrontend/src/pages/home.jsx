@@ -50,7 +50,8 @@ function Home({ result, setResult}) {
             setResult(data);
         } catch (err) {
             console.error("Error Uploading:", err);
-            alert("Something went wrong.");
+            const message = err instanceof Error ? err.message: String(err);
+            alert(`Failed beacuase ${message}`);
         } finally {
             setLoading(false);
         }
