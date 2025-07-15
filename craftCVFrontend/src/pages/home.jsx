@@ -17,6 +17,7 @@ function Home({ result, setResult}) {
 
 
     const handleFileChange = (e) => {
+        console.log("Selected file: ", e.target.files[0]);
         setFile(e.target.files[0]);
     };
 
@@ -76,7 +77,7 @@ function Home({ result, setResult}) {
                 <input 
                 className={styles.resumeInput}
                 type="file"
-                accept=".pdf"
+                accept="application/pdf"
                 required 
                 onChange={handleFileChange}
                 />
