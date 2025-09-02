@@ -77,7 +77,7 @@ function Home({ result, setResult}) {
                 <input 
                 className={styles.resumeInput}
                 type="file"
-                accept="application/pdf"
+                accept=".pdf,application/pdf,application/octet-stream"
                 required 
                 onChange={handleFileChange}
                 />
