@@ -81,6 +81,12 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
   }
 });
 
+
+// ✅ Simple health check endpoint
+app.get("/api/ping", (req, res) => {
+  res.json({ status: "ok", time: new Date().toISOString() });
+});
+
 app.post("/api/feedback", async (req, res) => {
   const { text } = req.body;
   const trimmedText = text?.trim();
