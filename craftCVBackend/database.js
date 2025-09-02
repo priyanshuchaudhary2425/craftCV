@@ -1,5 +1,4 @@
 import pg from "pg";
-
 const { Pool } = pg;
 
 const db = new Pool({
@@ -9,13 +8,13 @@ const db = new Pool({
   },
 });
 
-db.connect()
+// Just test with a query instead of holding a client
+db.query("SELECT NOW()")
   .then(() => console.log("✅ Connected to DB"))
-  .catch(() => console.log("❌ Error connecting to DB"));
+  .catch((err) => console.error("❌ Error connecting to DB", err.message));
 
 export async function creatTables() {
   try {
-    // Feedback table
     await db.query(`
       CREATE TABLE IF NOT EXISTS feedback (
         id SERIAL PRIMARY KEY,
@@ -24,7 +23,6 @@ export async function creatTables() {
       );
     `);
 
-    // Usage table
     await db.query(`
       CREATE TABLE IF NOT EXISTS usageCount (
         id SERIAL PRIMARY KEY,
@@ -34,11 +32,10 @@ export async function creatTables() {
 
     console.log("✅ Tables created or already exist...");
 
-    // Initialize usageCount row
     const result = await db.query(`SELECT * FROM usageCount`);
     if (result.rowCount === 0) {
       await db.query(`INSERT INTO usageCount (usage) VALUES (105)`);
-      console.log("✅ Initialized usageCount to 0");
+      console.log("✅ Initialized usageCount to 105");
     }
   } catch (err) {
     console.error("❌ Error creating tables", err.stack);
