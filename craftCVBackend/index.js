@@ -8,6 +8,7 @@ import { db, creatTables, incrementUsageCount, getUsageCOunt } from "./database.
 const app = express();
 const PORT = 3000;
 
+// Try to create tables, but don’t crash if DB is unavailable
 try {
   await creatTables();
 } catch (err) {
@@ -21,13 +22,18 @@ if (!fs.existsSync("uploads")) {
   fs.mkdirSync("uploads");
 }
 
+// Set up disk storage (to get file path)
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, "uploads/"),
-  filename: (req, file, cb) => cb(null, Date.now() + "-" + file.originalname),
+  destination: function (req, file, cb) {
+    cb(null, "uploads/"); // folder to save
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname); // unique filename
+  },
 });
 const upload = multer({ storage });
 
-// ✅ Non-blocking optimize route
+// Routing
 app.post("/api/optimize", upload.single("resume"), async (req, res) => {
   let filePath;
   try {
@@ -35,50 +41,45 @@ app.post("/api/optimize", upload.single("resume"), async (req, res) => {
     const jobDescription = req.body.jobDescription;
 
     if (!filePath) {
-      return res.status(400).json({ error: "No resume uploaded" });
+      return res.status(400).json({ error: "No resume Uploaded" });
     }
 
-    // Call Gemini first (don’t wait for DB here)
+    // Call Gemini API
     const result = await googleGeminiApi(jobDescription, filePath);
 
     if (result.startsWith("❌ Error:")) {
-      return res.status(400).json({ error: result });
-    }
+      return res.status(400).send(result);
+    } else {
+      const cleanJson = result.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(cleanJson);
 
-    const cleanJson = result.replace(/```json|```/g, "").trim();
-    const parsed = JSON.parse(cleanJson);
-
-    // Send response back quickly (usageCount = null until DB wakes)
-    res.json({ ...parsed, usageCount: null });
-
-    // ✅ Update DB in background (non-blocking)
-    (async () => {
+      // Try DB usage count, skip if DB fails
+      let usageCount = null;
       try {
         await incrementUsageCount();
-        const usageCount = await getUsageCOunt();
-        console.log("Updated usage count:", usageCount);
+        usageCount = await getUsageCOunt();
+        console.log("Used by: ", usageCount);
       } catch (dbErr) {
-        console.warn("⚠️ DB update skipped:", dbErr.message);
+        console.warn("⚠️ Skipping DB usage count:", dbErr.message);
       }
-    })();
+
+      res.json({ ...parsed, usageCount });
+    }
   } catch (err) {
-    console.error("API Error:", err.message);
-    res.status(500).json({ error: "Failed to process resume" });
+    console.error("Api Error:", err.message);
+    res.status(500).json({ error: "Failed to proceed Resume!!!" });
   } finally {
     if (filePath) {
       fs.unlink(filePath, (err) => {
-        if (err) console.error("❌ Error removing file:", err.message);
-        else console.log("✅ File removed successfully");
+        if (err) {
+          console.error("❌ Error removing File", err.message);
+        } else {
+          console.log("✅ File removed succesfully!!!");
+        }
       });
     }
   }
 });
-
-// ✅ Add ping route (to warm up Render + Neon)
-app.get("/api/ping", (req, res) => {
-  res.json({ status: "ok" });
-});
-
 
 app.post("/api/feedback", async (req, res) => {
   const { text } = req.body;
