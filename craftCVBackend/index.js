@@ -15,7 +15,7 @@ try {
   console.warn("⚠️ Skipping DB table creation:", err.message);
 }
 
-app.use(cors());
+app.use(cors({ origin: ["http://localhost:5173", "https://craft-cv.vercel.app"] }));
 app.use(express.json());
 
 if (!fs.existsSync("uploads")) {
